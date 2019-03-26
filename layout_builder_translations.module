@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Provides hook implementations for Layout Builder Translations.
+ */
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function layout_builder_translations_module_implements_alter(&$implementations, $hook) {
+  if ($hook === 'entity_translation_create') {
+    // Remove the hook that removes sections from translations.
+    unset($implementations['layout_builder']);
+  }
+}
+
+/**
+ * Implements hook_layout_builder_section_storage_alter().
+ */
+function layout_builder_translations_layout_builder_section_storage_alter(array &$definitions) {
+  /** @var \Drupal\layout_builder\SectionStorage\SectionStorageDefinition $overrides_storage_definition */
+  $overrides_storage_definition = $definitions['overrides'];
+  // Override the section storage definition to allow access to the layout tab
+  // on translations.
+  $overrides_storage_definition->setClass('\Drupal\layout_builder_translations\Plugin\SectionStorage\TranslatableOverridesSectionStorage');
+}

@@ -1,0 +1,7 @@
+name: 'Allow access to the Layout tab on translations'
+type: module
+description: 'Allows Layout Override Localizations'
+core: 8.x
+package: 'Layout Builder'
+dependencies:
+  - layout_builder
